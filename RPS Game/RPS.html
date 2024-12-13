@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin:0;
+        padding:0;
+    }
+    @keyframes colorWave {
+        0% {background-color: rgb(58, 235, 229);}
+        25% {background-color: rgb(229, 252, 52);}
+        50% {background-color: rgb(253, 171, 18);}
+        75% {background-color: rgb(245, 32, 75);}
+        100% {background-color: rgb(26, 255, 106);}
+    }
+    #outputBox {
+        background-color:black;
+        max-width:800px;
+        max-height:500px;
+        width:100%;
+        height:100%;
+        color:white;
+        display:flex;
+        flex-direction:column;
+        text-align:center;
+        display:none;
+    }
+
+    #gameStartChoices {
+        display:flex;
+        flex-direction:row;
+        justify-content: space-between;
+    }
+    #gameStartChoices> h1 {
+        margin:0 10px 0 10px;
+    }
+    #header {
+        text-align:center;
+        line-height: 50px;
+        padding:15px;
+    }
+    #gameSection {
+        display:flex;
+        flex-direction:row;
+        width:100%;
+        height:100vh;
+        max-height:700px;
+        background-color:black;
+        box-sizing: border-box;
+        justify-content: center;
+    }
+    #scoreBoard {
+        background-color:rgb(242, 226, 226);
+        height:100%;
+        width:100%;
+        max-width:300px;
+        margin-left:10px;
+        border:solid, rgb(36, 136, 134), 2px;
+        box-sizing:border-box;
+        border-radius:20px;
+        display:none;
+    }
+    #scoreboardTitle {
+        color:black;
+        text-align: center;
+    }
+    .stat {
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        color:rgb(34, 25, 25);
+        margin:0 0 0 10px;
+
+    }
+    #gameBox {
+        background-color: rgb(186, 186, 224);
+        max-width: 1000px;
+        width:100%;
+        border:solid 2px rgb(36, 136, 134);
+        border-radius:20px;
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #movingQuestion {
+        position:absolute;
+        animation: movingText 5s ease-in-out forwards;
+    }
+    #gameScoreboard {
+        background-color:rgb(242, 226, 226);
+        height:100%;
+        width:100%;
+        max-width:300px;
+        border:solid, rgb(36, 136, 134), 2px;
+        box-sizing:border-box;
+        border-radius:20px;
+        text-align: center;
+        display:none;
+    }
+    #gameStartedTitle {
+        display:none;
+    }
+
+    #buttonBox {
+        margin-top: auto;
+        display:flex;
+        justify-content: center;
+        gap:10px;
+        margin-bottom:10px;
+    }
+   .button {
+    background-color:antiquewhite;
+    border:black 1px solid;
+    border-radius:5px;
+    padding:20px;
+    margin-top:auto;
+    }
+
+    #startButton:hover {
+        cursor:pointer;
+        animation: colorWave 8s infinite;
+    }
+    .button:active  {
+        transform:scale(.9)
+    }
+
+    #submitButton {
+        display:none;
+    }
+
+    #submitButton:hover {
+        cursor:pointer;
+    }
+
+    #winnerOutput > img {
+        max-width:200px;
+        max-height:200px;
+        position:absolute;
+    }
+
+    #computerIcon {
+        z-index:1;
+        transform:translate(-90px,70px);
+        display:none;
+        max-width: 200px;
+        max-height:200px;
+    }
+
+    #userIcon {
+        z-index:0;
+        transform:translate(-40px,20px);
+        display:none;
+    }
+    #gameChoices {
+        display:none;
+        margin:50px 0 0 0;
+        font-size: 20px;
+        gap:40px;
+    }
+</style>
+
+<body>
+    <div id="header">
+        <h1><strong>ROCK PAPER SCISSORS</strong></h1>
+        <h2>Do YOU want to play?</h2>
+    </div>
+    <div id="gameSection">
+        
+        <div id="scoreBoard">
+        <h1 id="scoreboardTitle"><strong>Stats & Scoreboard:</strong></h1>
+        <h1 class="stat" id="round#">Round:</h1>
+        <h1 class="stat" id="player#">User Score:</h1>
+        <h1 class="stat" id="computer#">CPU Score:</h1>
+        <h1 class="stat" id="roundWinner"></h1>
+        <h1 class="stat" id="gameWinner"></h1>
+        </div>
+    <div id="gameBox">
+        <h1 id="movingQuestion">Click the start button to play!</h1>
+        <h1 id="gameStartedTitle">Game Started</h1>
+        <div id="outputBox">
+            <div id="gameStartChoices">
+            <h1 id="yourChoiceOutput">Your Choice:<br></h1>
+            <h1 id="cpuChoiceOutput">CPU Choice:<br></h1>
+            </div>
+            <div id="winnerOutputBox">
+                <h1 id="winnerOutput">Winner:</h1>
+                <img src="./ComputerIcon.png" id="computerIcon">
+                <img src="./playerIcon.png" id="userIcon">
+            </div>
+        </div>
+        <div id="gameChoices">
+        <input class='gameChoice' type="radio" id="rock" name="gameChoice">
+        <label for="rock">Rock</label>
+        <input class='gameChoice' type="radio" id="paper" name="gameChoice">
+        <label for="paper">Paper</label>
+        <input class='gameChoice' type="radio" id="scissors" name="gameChoice">
+        <label for="scissors">Scissors</label>
+        </div>
+        <div id="buttonBox">
+        <button class="button" id="startButton">Start Game</button>
+        <button class="button" id="submitButton">Choose Answer</button>
+        </div>
+    </div>
+    <div id="gameScoreboard">
+        <h1><strong>Game Wins:</strong></h1>
+        <h1 id="cpuGameWinOutput"></h1>
+        <h1 id="userGameWinOutput"></h1>
+    </div>
+    </div>
+</body>
+
+<script>
+    const submitButton = document.getElementById('submitButton');
+    const startButton = document.getElementById('startButton');
+    const outputBox = document.getElementById('outputBox');
+    const scoreBoard = document.getElementById('scoreBoard');
+    const gameScoreboard = document.getElementById('gameScoreboard');
+    const gameChoices = document.getElementById('gameChoices');
+    let roundCountText = document.getElementById('round#');
+    let playerScoreText = document.getElementById('player#');
+    let computerScoreText = document.getElementById('computer#');
+    let rockOption = document.getElementById('rock');
+    let paperOption = document.getElementById('paper');
+    let scissorsOption = document.getElementById('scissors');
+    let playerScore = 0;
+    let computerScore = 0;
+    let roundCount = 0;
+    let chosenWinner = '';
+    let winnerOutput = document.getElementById('winnerOutput');
+    let cpuChoiceOutput = document.getElementById('cpuChoiceOutput');
+    let yourChoiceOutput = document.getElementById('yourChoiceOutput');
+    let playerWins = 0;
+    let computerWins = 0;
+    let userGameWinOutput = document.getElementById('userGameWinOutput');
+    let cpuGameWinOutput = document.getElementById('cpuGameWinOutput');
+    startButton.addEventListener('click', () => {
+        submitButton.style.display = 'flex';
+        startButton.style.display = 'none';
+        outputBox.style.display = 'flex';
+        scoreBoard.style.display = 'block';
+        gameScoreboard.style.display = 'block';
+        gameChoices.style.display = 'block';
+        roundCountText.innerHTML = `Round: ${roundCount}`;
+        playerScoreText.innerHTML = `User Score: ${playerScore}`;
+        computerScoreText.innerHTML = `CPU Score: ${computerScore}`
+
+    })
+    
+    function computerAnswer() {
+        let randomNum = Math.floor(Math.random() * 10);
+        let answer;
+        if (randomNum <= 3) {
+            answer = "rock";
+        }
+        else if (randomNum <= 6) {
+            answer = "paper";
+        }
+        else {
+            answer = "scissors";
+        }
+        console.log(answer);
+        return answer;
+        
+    }
+    function updateScoreboard() {
+        roundCountText.innerHTML = `Round: ${roundCount}`;
+        playerScoreText.innerHTML = `User Score: ${playerScore}`;
+        computerScoreText.innerHTML = `CPU Score: ${computerScore}`
+    }
+    function checkAnswer() {
+        const CPUanswer = computerAnswer()
+        const selectedOption = document.querySelector('input[name="gameChoice"]:checked');
+        if (!selectedOption) {
+        alert("Please select Rock, Paper, or Scissors before submitting!");
+        return;}
+        const userChoice = selectedOption.id.toString().toUpperCase();
+        const computerChoice = computerAnswer().toString().toUpperCase();
+        if (userChoice == computerChoice) {
+            winnerOutput.innerHTML = 'It was a tie!'
+            yourChoiceOutput.innerHTML = `Your Choice:<br> ${userChoice}`;
+            cpuChoiceOutput.innerHTML = `CPU Choice:<br> ${computerChoice}`
+            roundCount++
+            updateScoreboard();
+            return;
+        }
+        if ((userChoice === "ROCK" && computerChoice === "SCISSORS") ||
+        (userChoice === "PAPER" && computerChoice === "ROCK") ||
+        (userChoice === "SCISSORS" && computerChoice === "PAPER")) {
+        
+        playerScore++;
+        chosenWinner = "You";
+        winnerOutput.innerHTML = `Winner: ${chosenWinner}`;
+        updateScoreboard();
+    }
+    // Check computer win conditions
+    else {
+        computerScore++;
+        chosenWinner = "The Computer";
+        winnerOutput.innerHTML = `Winner: ${chosenWinner}`;
+        updateScoreboard();
+    }
+
+        
+        roundCount++;
+        updateScoreboard();
+        yourChoiceOutput.innerHTML = `Your Choice:<br> ${userChoice}`;
+        cpuChoiceOutput.innerHTML = `CPU Choice:<br> ${computerChoice}`
+        if (playerScore >= 3 || computerScore >= 3) {
+    setTimeout(function() {
+        // Delay the alert and score reset by 1 second
+        if (playerScore >= 3) {
+            alert(`You have won the game! ${playerScore}-${computerScore}`);
+            playerWins++;
+            userGameWinOutput.innerHTML = `Your Wins: ${playerWins}`;
+        } else if (computerScore >= 3) {
+            alert(`You have lost the game! ${playerScore}-${computerScore}`);
+            computerWins++;
+            cpuGameWinOutput.innerHTML = `CPU Wins: ${computerWins}`;
+        }
+        
+        // Reset the scores and round count after 1 second delay
+        computerScore = 0;
+        roundCount = 0;
+        playerScore = 0;
+        yourChoiceOutput.innerHTML = `Your Choice:<br>`;
+        cpuChoiceOutput.innerHTML = `CPU Choice:<br>`;
+        winnerOutput.innerHTML = `Winner: `;
+        updateScoreboard();
+    }, 1000); // 1000 milliseconds (1 second) delay before executing the end of the game
+}
+
+    }
+    submitButton.addEventListener('click', checkAnswer)
+
+</script>
+</html>

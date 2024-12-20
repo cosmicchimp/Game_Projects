@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+
+<script>
+    // Creation of whole div box
+    const wholeDivBox = document.createElement("div")
+    wholeDivBox.id = 'wholeDivBox'
+    wholeDivBox.style.width = "100%"
+    wholeDivBox.style.height="100%"
+    //Creating the button for query
+    const queryButton = document.createElement('button')
+    queryButton.innerText = "Choose number of squares"
+    document.body.appendChild(queryButton)
+    queryButton.className = 'queryButton'
+    //Creating event listener for the button so we can take the input and make that many boxes
+    queryButton.addEventListener('click', () => {
+        let numOfSquares = prompt('Choose how many squares you want per side: ').input
+        console.log(numOfSquares)
+    })
+    
+
+    for (let i = 1; i <= 4;) {
+        let row = document.createElement('div')
+        row.style.width = "99%"
+        row.style.height = "140px"
+   
+        
+        row.className = 'row'
+        for (let o = 1; o <= 4;) {
+            let rowBox = document.createElement("div")
+            rowBox.style.width = "140px"
+            rowBox.style.height = "140px"
+            rowBox.style.backgroundColor = "blue"
+            rowBox.style.display = "flex"
+            rowBox.className = "rowBox"
+            rowBox.style.border = "black solid 1px"
+            row.appendChild(rowBox)
+            rowBox.style.boxSizing = "border-box"
+            
+            o++
+        }
+        wholeDivBox.appendChild(row);
+    
+        i++
+    }
+
+    document.body.appendChild(wholeDivBox);
+</script>
+<style>
+    @keyframes colorWave {
+        0% {background-color: rgb(58, 235, 229);}
+        25% {background-color: rgb(229, 252, 52);}
+        50% {background-color: rgb(253, 171, 18);}
+        75% {background-color: rgb(245, 32, 75);}
+        100% {background-color: rgb(26, 255, 106);}
+    }
+    * {
+        margin:0;
+        border:0;
+        gap:0;
+        padding:0;
+    }
+    .queryButton {
+        padding:10px;
+        margin-top:10px;
+        border:solid black 2px;
+        border-radius:10px;
+    }
+    .queryButton:active {
+        transform:scale(90%)
+        
+        
+    }
+   body {
+    height:100vh;
+    width:100vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+   }
+    #wholeDivBox {
+        display:flex;
+        flex-direction:column;
+        justify-content: center;
+        align-items: center;
+        height:99%;
+    }
+    .row {
+        display:flex;
+        flex-direction:row;
+        align-items: center;
+        justify-content: center;
+    }
+    html {
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        
+    }
+    .rowBox:hover {
+        animation:colorWave 3s infinite;
+    }
+</style>
+</html>

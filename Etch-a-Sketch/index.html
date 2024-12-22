@@ -3,127 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dynamic Grid with Animation</title>
+    <style>
+        @keyframes colorWave {
+            0% { background-color: rgb(58, 235, 229); }
+            25% { background-color: rgb(229, 252, 52); }
+            50% { background-color: rgb(253, 171, 18); }
+            75% { background-color: rgb(245, 32, 75); }
+            100% { background-color: rgb(26, 255, 106); }
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .queryButton {
+            padding: 10px;
+            margin-top: 10px;
+            border: 2px solid black;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .queryButton:active {
+            transform: scale(0.9);
+        }
+        #wholeDivBox {
+            display: flex;
+            flex-direction: column;
+            width: 500px;
+            height: 500px;
+            background-color: yellow;
+        }
+        .row {
+            display: flex;
+            flex: 1;
+        }
+        .rowBox {
+            flex: 1;
+            aspect-ratio: 1;
+            border: 1px solid black;
+        }
+        .color-wave-animation {
+            animation: colorWave 2s ease-in-out;
+        }
+    </style>
 </head>
 <body>
-    
+    <script>
+        // Create the main container
+        const wholeDivBox = document.createElement("div");
+        wholeDivBox.id = "wholeDivBox";
+
+        // Create the button
+        const queryButton = document.createElement("button");
+        queryButton.innerText = "Choose number of squares";
+        queryButton.className = "queryButton";
+        document.body.appendChild(queryButton);
+
+        // Append the container to the body
+        document.body.appendChild(wholeDivBox);
+
+        // Function to handle mouseenter animation
+        function startColorWave(event) {
+            const box = event.target; // The box that triggered the event
+            box.classList.add("color-wave-animation");
+            box.addEventListener(
+                "animationend",
+                () => {
+                    box.classList.remove("color-wave-animation");
+                },
+                { once: true }
+            );
+        }
+
+        // Function to create the grid
+        function createGrid(numOfSquares) {
+            wholeDivBox.innerHTML = ""; // Clear previous grid
+            for (let i = 0; i < numOfSquares; i++) {
+                const row = document.createElement("div");
+                row.className = "row";
+
+                for (let j = 0; j < numOfSquares; j++) {
+                    const rowBox = document.createElement("div");
+                    rowBox.className = "rowBox";
+
+                    // Attach animation event listener
+                    rowBox.addEventListener("mouseenter", startColorWave);
+
+                    row.appendChild(rowBox);
+                }
+
+                wholeDivBox.appendChild(row);
+            }
+        }
+
+        // Button click event listener
+        queryButton.addEventListener("click", () => {
+            const numOfSquares = parseInt(
+                prompt("Choose how many squares you want per side:")
+            );
+            if (!isNaN(numOfSquares) && numOfSquares > 0) {
+                createGrid(numOfSquares);
+            } else {
+                alert("Please enter a valid positive number.");
+            }
+        });
+
+        // Create a default grid on page load
+        createGrid(4);
+    </script>
 </body>
-
-<script>
-    // Creation of whole div box
-    const wholeDivBox = document.createElement("div")
-    wholeDivBox.id = 'wholeDivBox'
-    //Creating the button for query
-    const queryButton = document.createElement('button')
-    queryButton.innerText = "Choose number of squares"
-    document.body.appendChild(queryButton)
-    queryButton.className = 'queryButton'
-    //Creating event listener for the button so we can take the input and make that many boxes
-    queryButton.addEventListener('click', () => {
-        wholeDivBox.innerHTML = ''
-        let numOfSquares = prompt('Choose how many squares you want per side: ')
-        numOfSquares = parseInt(numOfSquares)
-        
-        for (let i = 1; i <= numOfSquares;) {
-        let row = document.createElement('div')
-        row.className = 'row'
-        
-        row.className = 'row'
-        for (let o = 1; o <= numOfSquares;) {
-            let rowBox = document.createElement("div")
-            rowBox.className = 'rowBox'
-            row.appendChild(rowBox)
-            
-            
-            o++
-        }
-        wholeDivBox.appendChild(row);
-    
-        i++
-    }
-    })
-    
-
-    for (let i = 1; i <= 4;) {
-        let row = document.createElement('div')
-        row.className = 'row'
-        
-        for (let o = 1; o <= 4;) {
-            let rowBox = document.createElement("div")
-            rowBox.className = 'rowBox'
-            row.appendChild(rowBox)
-            
-            
-            o++
-        }
-        wholeDivBox.appendChild(row);
-    
-        i++
-    }
-
-    document.body.appendChild(wholeDivBox);
-</script>
-<style>
-    @keyframes colorWave {
-        0% {background-color: rgb(58, 235, 229);}
-        25% {background-color: rgb(229, 252, 52);}
-        50% {background-color: rgb(253, 171, 18);}
-        75% {background-color: rgb(245, 32, 75);}
-        100% {background-color: rgb(26, 255, 106);}
-    }
-    * {
-        margin:0;
-        border:0;
-        gap:0;
-        padding:0;
-    }
-    .queryButton {
-        padding:10px;
-        margin-top:10px;
-        border:solid black 2px;
-        border-radius:10px;
-    }
-    .queryButton:active {
-        transform:scale(90%)
-        
-        
-    }
-   body {
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-   }
-    #wholeDivBox {
-        display:flex;
-        flex-direction:column;
-        height:500px;
-        width:500px;
-        box-sizing:border-box;
-        background-color:yellow;
-    }
-    .row {
-        align-items: center;
-        justify-content: center;
-        display:flex;
-        flex-direction:row;
-        background-color: blue;
-    }
-    html {
-        display:flex;
-        align-items: center;
-        justify-content: center;
-        
-    }
-    .rowBox:hover {
-        animation:colorWave 3s infinite;
-    }
-    .rowBox {
-        flex:1;
-        aspect-ratio: 1;
-        box-sizing: border-box;
-        flex-shrink:1;
-        border:1px solid black;
-    }
-</style>
 </html>

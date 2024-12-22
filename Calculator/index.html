@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<div id="calculatorBody">
+    <div id="outputBar"></div>
+</div>    
+</body>
+
+<script>
+    let calcBody = document.querySelector('#calculatorBody')
+    for (let i=1; i <= 4; i++) {
+        let calcRow = document.createElement('div')
+        calcRow.className = "row"
+        calcRow.id = `row${i}`
+
+        for (let i=1; i <= 4; i++) {
+            let calcButton = document.createElement('button')
+            calcButton.innerText = `button${i}`
+            calcButton.className = 'calcButton'
+            calcRow.appendChild(calcButton)
+        }
+        calcBody.appendChild(calcRow)
+        
+    }
+    let buttonArray = Array.from(document.querySelectorAll('.calcButton'))
+    console.log(buttonArray)
+    for (let i =0 ; i < 16; i++) {
+        let button = buttonArray[i]
+        button.id = `calcButton${i}`
+    }
+    //Creating the display for each button 1 by 1
+    const button0 = document.getElementById('calcButton0')
+    button0.innerText = "1"
+
+    const button1 = document.getElementById('calcButton1')
+    button1.innerText = "2"
+
+    const button2 = document.getElementById('calcButton2')
+    button2.innerText = "3"
+
+    const button3 = document.getElementById('calcButton3')
+    button3.innerText = "%"
+
+    const button4 = document.getElementById('calcButton4')
+    button4.innerText = "4"
+
+    const button5 = document.getElementById('calcButton5')
+    button5.innerText = "5"
+
+    const button6 = document.getElementById('calcButton6')
+    button6.innerText = "6"
+
+    const button7 = document.getElementById('calcButton7')
+    button7.innerText = "*"
+
+    const button8 = document.getElementById('calcButton8')
+    button8.innerText = "7"
+
+    const button9 = document.getElementById('calcButton9')
+    button9.innerText = "8"
+
+    const button10 = document.getElementById('calcButton10')
+    button10.innerText = "9"
+
+    const button11 = document.getElementById('calcButton11')
+    button11.innerText = "-"
+
+    const button12 = document.getElementById('calcButton12')
+    button12.innerText = "0"
+
+    const button13 = document.getElementById('calcButton13')
+    button13.innerText = "."
+
+    const button14 = document.getElementById('calcButton14')
+    button14.innerText = "="
+
+    const button15 = document.getElementById('calcButton15')
+    button15.innerText = "+"
+
+
+
+
+    
+    </script>
+    <style>
+        .calcButton {
+            font-size:23px;
+            font-weight: 600;
+        }
+        * {
+            margin:0;
+            border:0;
+            padding:0;
+        }
+        body {
+            display:flex;
+            justify-content: center;
+        }
+        #outputBar {
+            width:280px;
+            height:80px;
+            background-color:darkgrey;
+            border:1px black solid;
+            border-radius:10px;
+            margin-top:10px;
+            margin-bottom:10px;
+
+        }
+        #calculatorBody {
+            width:300px;
+            height:400px;
+            background-color:grey;
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top:20px;
+            
+        }
+    
+        .calcButton {
+            width:60px;
+            height:60px;
+            border:1px black solid;
+            background-color: blue;
+            border-radius:10px;
+            margin:3px;
+            margin-left:5px;
+            margin-right:5px;
+        }
+        .calcButton:active {
+            transform:scale(90%);
+        }
+    </style>
+</html>

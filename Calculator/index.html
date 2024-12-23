@@ -12,80 +12,236 @@
 </body>
 
 <script>
+    //Creating calc body and function to generate rows and buttons
     let calcBody = document.querySelector('#calculatorBody')
-    for (let i=1; i <= 4; i++) {
-        let calcRow = document.createElement('div')
-        calcRow.className = "row"
-        calcRow.id = `row${i}`
+    for (let i = 1; i <= 4; i++) {
+    	let calcRow = document.createElement('div')
+    	calcRow.className = "row"
+    	calcRow.id = `row${i}`
 
-        for (let i=1; i <= 4; i++) {
-            let calcButton = document.createElement('button')
-            calcButton.innerText = `button${i}`
-            calcButton.className = 'calcButton'
-            calcRow.appendChild(calcButton)
-        }
-        calcBody.appendChild(calcRow)
-        
+    	for (let i = 1; i <= 4; i++) {
+    		let calcButton = document.createElement('button')
+    		calcButton.innerText = `button${i}`
+    		calcButton.className = 'calcButton'
+    		calcRow.appendChild(calcButton)
+    	}
+    	calcBody.appendChild(calcRow)
+
     }
+
+    //Turn the buttons into an array so I can sort and ID them all
     let buttonArray = Array.from(document.querySelectorAll('.calcButton'))
     console.log(buttonArray)
-    for (let i =0 ; i < 16; i++) {
-        let button = buttonArray[i]
-        button.id = `calcButton${i}`
+    for (let i = 0; i < 16; i++) {
+    	let button = buttonArray[i]
+    	button.id = `calcButton${i}`
     }
-    //Creating the display for each button 1 by 1
-    const button0 = document.getElementById('calcButton0')
-    button0.innerText = "1"
-
-    const button1 = document.getElementById('calcButton1')
-    button1.innerText = "2"
-
-    const button2 = document.getElementById('calcButton2')
-    button2.innerText = "3"
-
-    const button3 = document.getElementById('calcButton3')
-    button3.innerText = "%"
-
-    const button4 = document.getElementById('calcButton4')
-    button4.innerText = "4"
-
-    const button5 = document.getElementById('calcButton5')
-    button5.innerText = "5"
-
-    const button6 = document.getElementById('calcButton6')
-    button6.innerText = "6"
-
-    const button7 = document.getElementById('calcButton7')
-    button7.innerText = "*"
-
-    const button8 = document.getElementById('calcButton8')
-    button8.innerText = "7"
-
-    const button9 = document.getElementById('calcButton9')
-    button9.innerText = "8"
-
-    const button10 = document.getElementById('calcButton10')
-    button10.innerText = "9"
-
-    const button11 = document.getElementById('calcButton11')
-    button11.innerText = "-"
-
-    const button12 = document.getElementById('calcButton12')
-    button12.innerText = "0"
-
-    const button13 = document.getElementById('calcButton13')
-    button13.innerText = "."
-
-    const button14 = document.getElementById('calcButton14')
-    button14.innerText = "="
-
-    const button15 = document.getElementById('calcButton15')
-    button15.innerText = "+"
-
-
-
-
+    //Setting a const for the outputBar
+    const outputBar = document.querySelector('#outputBar');
+    const buttonLabels = [
+    	"1", "2", "3", "%",
+    	"4", "5", "6", "*",
+    	"7", "8", "9", "-",
+    	"0", ".", "=", "+"
+    ];
+    //Operator Array
+    const operatorArray = ["+", "%", "*", "-", ]
     
+    // Object to hold calculator values
+    let calcValue = {
+    	pastValue: 0,
+    	presentValue: 0,
+    }
+
+    // State flags
+    let operatorChosen = false;
+    let equalChosen = false;
+    let decimalChosen = false;
+    let addChosen = false;
+    let subChosen = false;
+    let divChosen = false;
+    let multChosen = false;
+    let clearChosen = false;
+
+    // Function to reset flags
+    function resetFlags() {
+        operatorChosen = false;
+        equalChosen = false;
+        decimalChosen = false;
+        addChosen = false;
+        subChosen = false;
+        divChosen = false;
+        multChosen = false;
+        clearChosen = false;
+    }
+
+    // Function array with optimized flag handling
+    let functionArray = [
+    	function functionZero() {
+    		if (operatorArray.includes(outputBar.innerText)) {
+    			outputBar.innerText = ""
+    		}
+    		outputBar.innerText += 1;
+    		resetFlags();
+    	},
+    	function functionOne() {
+    		if (operatorArray.includes(outputBar.innerText)) {
+    			outputBar.innerText = ""
+    		}
+    		outputBar.innerText += 2;
+    		resetFlags();
+    	},
+    	function functionTwo() {
+    		if (operatorArray.includes(outputBar.innerText)) {
+    			outputBar.innerText = ""
+    		}
+    		outputBar.innerText += 3;
+    		resetFlags();
+    	},
+    	function divisionFunction() {
+    		resetFlags();
+    		operatorChosen = true;
+    		divChosen = true;
+    	},
+    	function functionFour() {
+    		if (operatorArray.includes(outputBar.innerText)) {
+    			outputBar.innerText = ""
+    		}
+    		outputBar.innerText += 4
+    		resetFlags();
+    	},
+    	function functionFive() {
+    		if (operatorArray.includes(outputBar.innerText)) {
+    			outputBar.innerText = ""
+    		}
+    		outputBar.innerText += 5
+    		resetFlags();
+    	},
+    	function functionSix() {
+    		if (operatorArray.includes(outputBar.innerText)) {
+    			outputBar.innerText = ""
+    		}
+    		outputBar.innerText += 6
+    		resetFlags();
+    	},
+    	function multiplicationFunction() {
+    		resetFlags();
+    		operatorChosen = true;
+    		multChosen = true;
+    	},
+    	function functionEight() {
+    		if (operatorArray.includes(outputBar.innerText)) {
+    			outputBar.innerText = ""
+    		}
+    		outputBar.innerText += 7
+    		resetFlags();
+    	},
+    	function functionNine() {
+    		if (operatorArray.includes(outputBar.innerText)) {
+    			outputBar.innerText = ""
+    		}
+    		outputBar.innerText += 8
+    		resetFlags();
+    	},
+    	function functionTen() {
+    		if (operatorArray.includes(outputBar.innerText)) {
+    			outputBar.innerText = ""
+    		}
+    		outputBar.innerText += 9
+    		resetFlags();
+    	},
+    	function subtractionFunction() {
+    		resetFlags();
+    		operatorChosen = true;
+    		subChosen = true;
+    	},
+    	function functionTwelve() {
+    		if (operatorArray.includes(outputBar.innerText)) {
+    			outputBar.innerText = ""
+    		}
+    		outputBar.innerText += 0
+    		resetFlags();
+    	},
+    	function decimalFunction() {
+    		if (!outputBar.innerText.includes('.')){ 
+                outputBar.innerText += "."}
+    		resetFlags();
+    		decimalChosen = true;
+    	},
+    	function equalFunction() {
+    		resetFlags();
+    		equalChosen = true;
+    	},
+    	function additionFunction() {
+    		resetFlags();
+    		operatorChosen = true;
+    		addChosen = true;
+    	},
+    ]
+    //Above functions are for display on the outputbar and operation identifiers 
+
+    //Function to update the calculator value total each time an operator is chosen
+    function updateCalc() {
+    	if (isNaN(calcValue.newValue) || calcValue.newValue === undefined) {
+    		calcValue.newValue = 0; // Default to 0 if no valid input
+    	}
+        if (addChosen) {
+    	calcValue.pastValue += calcValue.newValue
+
+        }
+        if (multChosen) {
+            if (calcValue.pastValue == 0 ? calcValue.pastValue = 1 : calcValue.pastValue)
+            calcValue.pastValue *= calcValue.newValue
+        }
+        calcValue.newValue = 0
+
+    }
+    //Function below is check function that runs on each button push to check if its a number or operator or equal and then tell it what to do
+    function checkButtonChoice() {
+    	if (operatorChosen) {
+    		console.log("operator chosen")
+    		if (addChosen) {
+    			calcValue.newValue = parseFloat(outputBar.innerText)
+    			outputBar.innerText = ""
+    			console.log(calcValue.pastValue, calcValue.newValue)
+    			updateCalc()
+    			console.log(calcValue.pastValue, calcValue.newValue)
+    		}
+            else if (multChosen) {
+                calcValue.newValue = parseFloat(outputBar.innerText)
+    			outputBar.innerText = ""
+    			console.log(calcValue.pastValue, calcValue.newValue)
+    			updateCalc()
+    			console.log(calcValue.pastValue, calcValue.newValue)
+            }
+
+    	} else if (equalChosen) {
+    		calcValue.newValue = parseFloat(outputBar.innerText)
+            calcValue.newValue = parseFloat(outputBar.innerText)
+    		outputBar.innerText = parseFloat(calcValue.pastValue)
+    		console.log(calcValue.pastValue, calcValue.newValue)
+            updateCalc()
+    	}  else {
+    		console.log('number')
+    	}
+    }
+
+    //I also think we will need a Calculate() function because aside from the key events we need a button to handle all the values seperate
+    function Calculate() {
+
+    }
+    //Creating labels, id's, and event listeners
+    buttonArray.forEach((button, index) => {
+    	button.id = `calcButton${index}`;
+    	button.innerText = buttonLabels[index];
+    	button.addEventListener('click', functionArray[index])
+    	button.addEventListener('click', checkButtonChoice)
+    });
+    const clearButton = document.createElement('button')
+    clearButton.innerText = "C"
+    clearButton.className = "calcButton"
+    clearButton.id = 'clearButton'
+    calcBody.appendChild(clearButton)
     </script>
     <style>
         .calcButton {
@@ -109,16 +265,22 @@
             border-radius:10px;
             margin-top:10px;
             margin-bottom:10px;
+            display:flex;
+            align-items: center;
+            justify-content: flex-end;
+            font-size: 50px;
+            font-weight:600;
 
         }
         #calculatorBody {
-            width:300px;
-            height:400px;
+            width:300px; 
+            height:435px;
             background-color:grey;
             display:flex;
             flex-direction: column;
             align-items: center;
             margin-top:20px;
+            border-radius:10px;
             
         }
     
@@ -134,6 +296,12 @@
         }
         .calcButton:active {
             transform:scale(90%);
+            background-color: lightblue;
+        }
+        #clearButton {
+            align-self: flex-end;
+            margin-right:15px;
+            width:130px;
         }
     </style>
 </html>

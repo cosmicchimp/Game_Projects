@@ -42,7 +42,7 @@
 //
 function updateDisplay() { 
 		displayBar = document.querySelector("#outputBar")
-		if (displayBar.innerText.toString().length >= 9) {
+		if (displayBar.innerText.toString().length >= 11) {
 			alert("Max digits chosen")
 		}
         else {
@@ -51,31 +51,110 @@ function updateDisplay() {
 }
 
 // 
-//Pre-defining functions that will be used for button events
+//Pre-defining values that will be used for button events
 //
+    barValue = document.querySelector("#outputBar")
+    let firstOperand = null
+	let secondOperand = null
+	let firstOperator = null
+    let secondOperator = null
+	let result = null
+	let displayOutput = ''
+    let calculatedValue = 0
+    let thirdOperand = null
+    let thirdOperator = null
+    let firstWipe = false;
+//
+//Different clicked functions 
+//
+
+//Number gets clicked
 function operandClicked(buttonValue) {
-		if (firstOperand === null) {
-			firstOperand = buttonValue
-			displayOutput = firstOperand
-			updateDisplay()
-		}
-        else {
+            if (barValue.innerText === firstOperand && firstOperator != null)
+            {
+             if (firstWipe != true) {
+                barValue.innerText = ""
+                firstWipe = true;
+             }   
+            }
+            else if(barValue.innerText === secondOperand &&  thirdOperator == null){
+                barValue.innerText = ""
+            }
+            else if (barValue.innerText == parseFloat(calculatedValue)){
+                barValue.innerText = ""
+            }
+            
             displayOutput = buttonValue
             updateDisplay()
+            
+        }
+
+//Operator gets clicked
+	function operatorClicked(value) {
+        //put in safeguards for undefined or weird inputs
+        console.log(value, firstOperator, firstOperand)
+        //first operator
+        if (firstOperator == null && firstOperand == null) {
+			firstOperator = value;
+            firstOperand = barValue.innerText;
+		}
+        //second operator
+        else if (firstOperator != null && secondOperator == null) {
+            calculatedValue = operate(parseFloat(firstOperand), parseFloat(displayBar.innerText), firstOperator)
+            barValue.innerText = calculatedValue
+            secondOperator = value
+            secondOperand = calculatedValue
+        }
+        //third operator
+        else if (firstOperator != null && secondOperator != null) {
+            if(thirdOperator == null || thirdOperand == null) {
+            calculatedValue = operate(parseFloat(secondOperand), parseFloat(displayBar.innerText), secondOperator)
+            barValue.innerText = calculatedValue
+            thirdOperator = value
+            thirdOperand = calculatedValue
+        }
+        else {
+            calculatedValue = operate(parseFloat(thirdOperand), parseFloat(barValue.innerText), thirdOperator)
+            displayBar.innerText = calculatedValue
+            thirdOperator = value;
+            thirdOperand = calculatedValue;
         }
 	}
-
-	function operatorClicked(value) {
-		if (firstOperator == null && secondOperator == null) {
-			firstOperator = value;
-		}
+}
+//Equal gets clicked
+function equalClicked(value) {
+    if (firstOperator != null && secondOperator == null) {
+        calculatedValue = operate(parseFloat(firstOperand), parseFloat(displayBar.innerText), firstOperator)
+        barValue.innerText = calculatedValue
+    }
+    else if (firstOperator != null && secondOperator != null) {
+            if(thirdOperator == null && thirdOperand == null) {
+            calculatedValue = operate(parseFloat(secondOperand), parseFloat(displayBar.innerText), secondOperator)
+            barValue.innerText = calculatedValue
+            thirdOperator = value
+            thirdOperand = calculatedValue
+        }
+        else {
+            calculatedValue = operate(parseFloat(thirdOperand), parseFloat(barValue.innerText), thirdOperator)
+            displayBar.innerText = calculatedValue
+            thirdOperator = value;
+            thirdOperand = calculatedValue;
+        }
 	}
+    firstOperand = null;
+    firstOperator = null;
+    secondOperand = null;
+    secondOperator = null;
+    thirdOperand = null;
+    thirdOperator = null;
+    firstWipe = false;
+}
 
 //
 // Creation of button label array
 // 
     const buttonLabels = [
-        "1", "2", "3", "%",
+        "1", "2", "3", "÷",
         "4", "5", "6", "*",
         "7", "8", "9", "-",
         "0", ".", "=", "+", 
@@ -84,13 +163,8 @@ function operandClicked(buttonValue) {
 //
 //Array that holds the operator values
 //
-	const operatorValueArray = ["+", "-", "%", "*"]
-    let firstOperand = null
-	let secondOperand = null
-	let firstOperator = null
-    let secondOperator = null
-	let result = null
-	let displayOutput = ''
+	const operatorValueArray = ["+", "-", "÷", "*"]
+
 //
 //This is the forEach that gives each button a class
 //an ID and a value, you will also use this to assign functions
@@ -120,6 +194,7 @@ let buttonArray = Array.from(document.querySelectorAll('.calcButton'));
 		}
 		else {
 			button.className = 'operand'
+            button.value = parseInt(button.value)
 		}
 //
 //Now that every button class has been defined:
@@ -131,13 +206,57 @@ let buttonArray = Array.from(document.querySelectorAll('.calcButton'));
             if (button.classList.contains('operand')) {
                 operandClicked(buttonNum)
                 }
+            else if (button.classList.contains('operator')) {
+                operatorClicked(buttonNum)
+            }
+            else if (button.classList.contains('equals')) {
+                equalClicked(buttonNum)
+            }
+            else if (button.classList.contains('decimal')) {
+                if (!displayBar.innerText.includes('.')) {
+                    displayBar.innerText += "."
+                }
+                else {
+                    alert('You already have a decimal')
+                }
+            }
+
+            else if (button.classList.contains('clear')) {
+                displayBar.innerText = ""
+            }
+            else if (button.classList.contains('sign')) {
+                if (displayBar.innerText.includes('-')) {
+                    displayBar.innerText = displayBar.innerText.slice(1)
+                }
+                else {
+                displayBar.innerText = `-${displayBar.innerText}`
+            }
+            }
+    
     }); //event listener end
     });
-//
-//Past this point buttons have already been created, this is tracking and calculating now
-//
-	
 
+//
+//Operate function for recognizing different op button values and executing specific formulas
+//
+function operate(num1, num2, sign) {
+    if (sign == "+") {
+        return num1 + num2
+    }
+    else if (sign == "-") {
+        return num1 - num2
+    }
+    else if (sign == "*") {
+        return num1 * num2
+    }
+    else if (sign == '÷') {
+        if (num2 == 0 || num2 == '0'){
+            alert("you cannot divide by 0")
+            return 0;
+        }
+        return num1 / num2
+    }
+}
 
  
 
@@ -170,6 +289,7 @@ let buttonArray = Array.from(document.querySelectorAll('.calcButton'));
 		justify-content: flex-end;
 		align-items: center;
 		font-weight:500;
+        overflow-y:auto;
     }
     #calculatorBody {
         width: 300px;
@@ -192,17 +312,17 @@ let buttonArray = Array.from(document.querySelectorAll('.calcButton'));
         margin-left: 5px;
         margin-right: 5px;
     }
-    .operand:active {
+    .operand:active, .decimal:active {
         transform: scale(90%);
         background-color:#7979ee;
     }
-    #calcButton3, #calcButton7, #calcButton11, #calcButton15, #calcButton17, #calcButton16 {
+    #calcButton3, #calcButton7, #calcButton11, #calcButton15, #calcButton14, #calcButton17, #calcButton16 {
         background-color:yellowgreen;
     }
     #calcButton3:focus, #calcButton7:focus, #calcButton11:focus, #calcButton15:focus{
         background-color:rgb(111, 155, 23);
     }
-	#calcButton16:active, #calcButton17:active {
+	#calcButton16:active, #calcButton17:active, #calcButton14:active {
 		transform:scale(90%);
 		background-color:rgb(111, 155, 23)
 	}
@@ -210,8 +330,8 @@ let buttonArray = Array.from(document.querySelectorAll('.calcButton'));
 		width:100%;
 		display:flex;
 		flex-direction:row;
-		justify-content: flex-end;
-		margin-right:20px;
+		justify-content: flex-start;
+		margin-left:20px;
 	}
 	
 </style>

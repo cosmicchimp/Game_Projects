@@ -22,9 +22,9 @@
             calcButton.innerText = `button${j}`;
             calcButton.className = 'calcButton';
             calcRow.appendChild(calcButton);
+			}
             
          }
-        }
         else if (i = 5) {
             for (let f = 1; f <= 2; f++) {
             let calcButton = document.createElement('button');
@@ -48,16 +48,49 @@
         "0", ".", "=", "+", 
         "A/C", "+/-"
     ];
+	const operatorValueArray = ["+", "-", "%", "*"]
 
     buttonArray.forEach((button, index) => {
         button.id = `calcButton${index}`;
         button.innerText = buttonLabels[index];
+		button.value = buttonLabels[index];
+		button.addEventListener('click', operandClicked())
+		if (operatorValueArray.includes(button.value)) {
+			button.className = 'operator'
+			button.addEventListener('click', operatorClicked())
+		}
+		else if (button.value == "A/C") {
+			button.className = "clear"
+		}
+		else if (button.value == "=") {
+			button.className = "equals"
+		}
+		else if (button.value == "+/-") {
+			button.className = 'sign'
+		}
+		else if (button.value == ".") {
+			button.className = "decimal"
+		}
     });
-    
+	
+
+	//Past this point buttons have already been created, this is tracking and calculating now
+	let firstOperand = null
+	let secondOperand = null
+	let firstOperator = null
+    let secondOperator = null
+	let displayValue = '0'
+	let result = null
+
+	function operandClicked() {}
+	function operatorClicked() {}
+
+
+
 
 </script>
 <style>
-    .calcButton {
+    .calcButton, .operator, .sign, .equals, .clear, .decimal{
         font-size: 23px;
         font-weight: 600;
     }
@@ -90,7 +123,7 @@
         border-radius:10px;
     }
 
-    .calcButton {
+    .calcButton, .operator, .sign, .equals, .clear, .decimal {
         width: 60px;
         height: 60px;
         border: 1px black solid;
@@ -104,11 +137,19 @@
         transform: scale(90%);
         background-color:rgb(121, 121, 238);
     }
-    #calcButton3, #calcButton7, #calcButton11, #calcButton15 {
+    #calcButton3, #calcButton7, #calcButton11, #calcButton15, #calcButton17, #calcButton16 {
         background-color:yellowgreen;
     }
-    #calcButton3:focus, #calcButton7:focus, #calcButton11:focus, #calcButton15:focus {
+    #calcButton3:focus, #calcButton7:focus, #calcButton11:focus, #calcButton15:focus{
         background-color:rgb(111, 155, 23);
     }
+	#row5 {
+		width:100%;
+		display:flex;
+		flex-direction:row;
+		justify-content: flex-end;
+		margin-right:20px;
+	}
+	
 </style>
 </html>

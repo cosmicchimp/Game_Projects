@@ -37,7 +37,6 @@
     calcBody.appendChild(calcRow);
     }
     
-    
 
     // Creation of button array and its functions
     let buttonArray = Array.from(document.querySelectorAll('.calcButton'));
@@ -54,7 +53,6 @@
         button.id = `calcButton${index}`;
         button.innerText = buttonLabels[index];
 		button.value = buttonLabels[index];
-		button.addEventListener('click', operandClicked())
 		if (operatorValueArray.includes(button.value)) {
 			button.className = 'operator'
 			button.addEventListener('click', operatorClicked())
@@ -71,6 +69,10 @@
 		else if (button.value == ".") {
 			button.className = "decimal"
 		}
+		else {
+			button.addEventListener('click', operandClicked())
+			button.className = 'operand'
+		}
     });
 	
 
@@ -82,7 +84,16 @@
 	let displayValue = '0'
 	let result = null
 
-	function operandClicked() {}
+	//function to update display
+	function updateDisplay() {
+    	let outputBar = document.querySelector('#outputBar');
+    	outputBar.innerText = displayValue; 
+	}
+
+	updateDisplay()
+	function operandClicked() {
+
+	}
 	function operatorClicked() {}
 
 
@@ -90,7 +101,7 @@
 
 </script>
 <style>
-    .calcButton, .operator, .sign, .equals, .clear, .decimal{
+    .calcButton, .operator, .sign, .equals, .clear, .decimal, .operand{
         font-size: 23px;
         font-weight: 600;
     }
@@ -111,6 +122,12 @@
         border-radius: 10px;
         margin-top: 10px;
         margin-bottom: 10px;
+		font-size:50px;
+		display:flex;
+		flex-direction:row;
+		justify-content: flex-end;
+		align-items: center;
+		font-weight:500;
     }
     #calculatorBody {
         width: 300px;
@@ -123,7 +140,7 @@
         border-radius:10px;
     }
 
-    .calcButton, .operator, .sign, .equals, .clear, .decimal {
+    .calcButton, .operator, .sign, .equals, .clear, .decimal, .operand{
         width: 60px;
         height: 60px;
         border: 1px black solid;
@@ -143,6 +160,10 @@
     #calcButton3:focus, #calcButton7:focus, #calcButton11:focus, #calcButton15:focus{
         background-color:rgb(111, 155, 23);
     }
+	#calcButton16:active, #calcButton17:active {
+		transform:scale(90%);
+		background-color:rgb(111, 155, 23)
+	}
 	#row5 {
 		width:100%;
 		display:flex;

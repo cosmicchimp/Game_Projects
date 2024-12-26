@@ -11,6 +11,11 @@
 </div>    
 </body>
 <script>
+    
+    function roundAccurately(num, places) {
+    return parseFloat(Math.round(num + 'e' + places) + 'e-' + places);
+}
+
     let calcBody = document.querySelector('#calculatorBody');
     for (let i = 1; i <= 5; i++) {
         let calcRow = document.createElement('div');
@@ -101,7 +106,7 @@ function operandClicked(buttonValue) {
         //second operator
         else if (firstOperator != null && secondOperator == null) {
             calculatedValue = operate(parseFloat(firstOperand), parseFloat(displayBar.innerText), firstOperator)
-            barValue.innerText = calculatedValue
+            barValue.innerText = roundAccurately(calculatedValue, 15)
             secondOperator = value
             secondOperand = calculatedValue
         }
@@ -109,13 +114,13 @@ function operandClicked(buttonValue) {
         else if (firstOperator != null && secondOperator != null) {
             if(thirdOperator == null || thirdOperand == null) {
             calculatedValue = operate(parseFloat(secondOperand), parseFloat(displayBar.innerText), secondOperator)
-            barValue.innerText = calculatedValue
+            barValue.innerText = roundAccurately(calculatedValue, 15)
             thirdOperator = value
             thirdOperand = calculatedValue
         }
         else {
             calculatedValue = operate(parseFloat(thirdOperand), parseFloat(barValue.innerText), thirdOperator)
-            displayBar.innerText = calculatedValue
+            displayBar.innerText = roundAccurately(calculatedValue, 15)
             thirdOperator = value;
             thirdOperand = calculatedValue;
         }
@@ -125,18 +130,18 @@ function operandClicked(buttonValue) {
 function equalClicked(value) {
     if (firstOperator != null && secondOperator == null) {
         calculatedValue = operate(parseFloat(firstOperand), parseFloat(displayBar.innerText), firstOperator)
-        barValue.innerText = calculatedValue
+        barValue.innerText = roundAccurately(calculatedValue, 15)
     }
     else if (firstOperator != null && secondOperator != null) {
             if(thirdOperator == null && thirdOperand == null) {
             calculatedValue = operate(parseFloat(secondOperand), parseFloat(displayBar.innerText), secondOperator)
-            barValue.innerText = calculatedValue
+            barValue.innerText = roundAccurately(calculatedValue, 15)
             thirdOperator = value
             thirdOperand = calculatedValue
         }
         else {
             calculatedValue = operate(parseFloat(thirdOperand), parseFloat(barValue.innerText), thirdOperator)
-            displayBar.innerText = calculatedValue
+            displayBar.innerText = roundAccurately(calculatedValue, 15)
             thirdOperator = value;
             thirdOperand = calculatedValue;
         }
@@ -223,6 +228,14 @@ let buttonArray = Array.from(document.querySelectorAll('.calcButton'));
 
             else if (button.classList.contains('clear')) {
                 displayBar.innerText = ""
+                firstOperand = null;
+                firstOperator = null;
+                secondOperand = null;
+                secondOperator = null;
+                thirdOperand = null;
+                thirdOperator = null;
+                firstWipe = false;
+
             }
             else if (button.classList.contains('sign')) {
                 if (displayBar.innerText.includes('-')) {
@@ -283,13 +296,13 @@ function operate(num1, num2, sign) {
         border-radius: 10px;
         margin-top: 10px;
         margin-bottom: 10px;
-		font-size:50px;
+		font-size:35px;
 		display:flex;
 		flex-direction:row;
 		justify-content: flex-end;
 		align-items: center;
 		font-weight:500;
-        overflow-y:auto;
+        box-sizing: border-box;
     }
     #calculatorBody {
         width: 300px;

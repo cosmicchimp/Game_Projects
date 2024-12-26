@@ -106,7 +106,7 @@ function operandClicked(buttonValue) {
         //second operator
         else if (firstOperator != null && secondOperator == null) {
             calculatedValue = operate(parseFloat(firstOperand), parseFloat(displayBar.innerText), firstOperator)
-            barValue.innerText = roundAccurately(calculatedValue, 15)
+            barValue.innerText = calculatedValue.toFixed(2)
             secondOperator = value
             secondOperand = calculatedValue
         }
@@ -114,13 +114,13 @@ function operandClicked(buttonValue) {
         else if (firstOperator != null && secondOperator != null) {
             if(thirdOperator == null || thirdOperand == null) {
             calculatedValue = operate(parseFloat(secondOperand), parseFloat(displayBar.innerText), secondOperator)
-            barValue.innerText = roundAccurately(calculatedValue, 15)
+            barValue.innerText = calculatedValue.toFixed(2)
             thirdOperator = value
             thirdOperand = calculatedValue
         }
         else {
             calculatedValue = operate(parseFloat(thirdOperand), parseFloat(barValue.innerText), thirdOperator)
-            displayBar.innerText = roundAccurately(calculatedValue, 15)
+            displayBar.innerText = calculatedValue.toFixed(2)
             thirdOperator = value;
             thirdOperand = calculatedValue;
         }
@@ -130,18 +130,18 @@ function operandClicked(buttonValue) {
 function equalClicked(value) {
     if (firstOperator != null && secondOperator == null) {
         calculatedValue = operate(parseFloat(firstOperand), parseFloat(displayBar.innerText), firstOperator)
-        barValue.innerText = roundAccurately(calculatedValue, 15)
+        barValue.innerText = calculatedValue.toFixed(2)
     }
     else if (firstOperator != null && secondOperator != null) {
             if(thirdOperator == null && thirdOperand == null) {
             calculatedValue = operate(parseFloat(secondOperand), parseFloat(displayBar.innerText), secondOperator)
-            barValue.innerText = roundAccurately(calculatedValue, 15)
+            barValue.innerText = calculatedValue.toFixed(2)
             thirdOperator = value
             thirdOperand = calculatedValue
         }
         else {
             calculatedValue = operate(parseFloat(thirdOperand), parseFloat(barValue.innerText), thirdOperator)
-            displayBar.innerText = roundAccurately(calculatedValue, 15)
+            displayBar.innerText = calculatedValue.toFixed(2)
             thirdOperator = value;
             thirdOperand = calculatedValue;
         }

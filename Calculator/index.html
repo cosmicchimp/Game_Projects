@@ -25,7 +25,7 @@
 			}
             
          }
-        else if (i = 5) {
+        else if (i == 5) {
             for (let f = 1; f <= 2; f++) {
             let calcButton = document.createElement('button');
             calcButton.innerText = `button${f}`;
@@ -36,10 +36,44 @@
     }
     calcBody.appendChild(calcRow);
     }
-    
 
-    // Creation of button array and its functions
-    let buttonArray = Array.from(document.querySelectorAll('.calcButton'));
+//
+//Function to update display//takes value from displayValue and will output it
+//
+function updateDisplay() { 
+		displayBar = document.querySelector("#outputBar")
+		if (displayBar.innerText.toString().length >= 9) {
+			alert("Max digits chosen")
+		}
+        else {
+		displayBar.innerText += displayOutput 
+        }
+}
+
+// 
+//Pre-defining functions that will be used for button events
+//
+function operandClicked(buttonValue) {
+		if (firstOperand === null) {
+			firstOperand = buttonValue
+			displayOutput = firstOperand
+			updateDisplay()
+		}
+        else {
+            displayOutput = buttonValue
+            updateDisplay()
+        }
+	}
+
+	function operatorClicked(value) {
+		if (firstOperator == null && secondOperator == null) {
+			firstOperator = value;
+		}
+	}
+
+//
+// Creation of button label array
+// 
     const buttonLabels = [
         "1", "2", "3", "%",
         "4", "5", "6", "*",
@@ -47,15 +81,30 @@
         "0", ".", "=", "+", 
         "A/C", "+/-"
     ];
+//
+//Array that holds the operator values
+//
 	const operatorValueArray = ["+", "-", "%", "*"]
-
+    let firstOperand = null
+	let secondOperand = null
+	let firstOperator = null
+    let secondOperator = null
+	let result = null
+	let displayOutput = ''
+//
+//This is the forEach that gives each button a class
+//an ID and a value, you will also use this to assign functions
+//function - operatorClicked, operandClicked, etc.
+//Then use the value/loggedOperand/loggedOperator to calculate for each if
+//
+let buttonArray = Array.from(document.querySelectorAll('.calcButton'));
+    
     buttonArray.forEach((button, index) => {
         button.id = `calcButton${index}`;
         button.innerText = buttonLabels[index];
 		button.value = buttonLabels[index];
 		if (operatorValueArray.includes(button.value)) {
 			button.className = 'operator'
-			button.addEventListener('click', operatorClicked())
 		}
 		else if (button.value == "A/C") {
 			button.className = "clear"
@@ -70,34 +119,27 @@
 			button.className = "decimal"
 		}
 		else {
-			button.addEventListener('click', operandClicked())
 			button.className = 'operand'
 		}
+//
+//Now that every button class has been defined:
+//we can define the universal event listener that will search for class and
+//execute a specific function depending on class and if/elses
+//
+        button.addEventListener('click', function() {
+            let buttonNum = button.value
+            if (button.classList.contains('operand')) {
+                operandClicked(buttonNum)
+                }
+    }); //event listener end
     });
+//
+//Past this point buttons have already been created, this is tracking and calculating now
+//
 	
 
-	//Past this point buttons have already been created, this is tracking and calculating now
-	let firstOperand = null
-	let secondOperand = null
-	let firstOperator = null
-    let secondOperator = null
-	let displayValue = '0'
-	let result = null
 
-	//function to update display
-	function updateDisplay() {
-    	let outputBar = document.querySelector('#outputBar');
-    	outputBar.innerText = displayValue; 
-	}
-
-	updateDisplay()
-	function operandClicked() {
-
-	}
-	function operatorClicked() {}
-
-
-
+ 
 
 </script>
 <style>
@@ -150,9 +192,9 @@
         margin-left: 5px;
         margin-right: 5px;
     }
-    .calcButton:active {
+    .operand:active {
         transform: scale(90%);
-        background-color:rgb(121, 121, 238);
+        background-color:#7979ee;
     }
     #calcButton3, #calcButton7, #calcButton11, #calcButton15, #calcButton17, #calcButton16 {
         background-color:yellowgreen;

@@ -7,7 +7,43 @@
     <link href="./styles.css" rel="stylesheet">
 </head>
 <body>
-    
+        <div class="header">
+            <h1 class="headerTitle">Tic-Tac-Toe</h1>
+            <div class="gameNames">
+                <div class="statBox">
+                <h2 id="gameName1">Name1</h2>
+                <h2 id="playerOneScore">Score:</h2></div>
+                <div class="statBox"><h2 id="gameName2">Name2</h2>
+                <h2 id="playerTwoScore">Score:</h2></div>
+            </div>
+            <div class="buttonBox">
+                <input type='text' placeholder = 'Player1 Name' id="player1Name">
+                <button class="startButton">Start Game</button>
+                <input type='text' placeholder = 'Player2 Name' id="player2Name">
+            </div>
+            <div class="startedButtonBox">
+                <button class="restartButton">Restart</button>
+            </div>
+            </div>
+            <div id="winnerModule">
+                <h3>Would you like to play again, or start a new game?</h3>
+                <div id="winnerButtons"><button id="playAgainButton">Play Again</button>
+                <button id="newGameButton">New Game</button>
+                </div>
+            </div>
+            <div class="container">
+         
+        <div class="TTTGrid"><div class="gridSquare" id="gridSqaure1"></div>
+        <div class="gridSquare" id="gridSqaure2"></div>
+        <div class="gridSquare" id="gridSqaure3"></div>
+        <div class="gridSquare" id="gridSqaure4"></div>
+        <div class="gridSquare" id="gridSqaure5"></div>
+        <div class="gridSquare" id="gridSqaure6"></div>
+        <div class="gridSquare" id="gridSqaure7"></div>
+        <div class="gridSquare" id="gridSqaure8"></div>
+        <div class="gridSquare" id="gridSqaure9"></div>
+    </div>
+    </div>
 </body>
 <script src="./TTT.js"></script>
 </html>

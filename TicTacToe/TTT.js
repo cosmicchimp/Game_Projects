@@ -13,6 +13,15 @@ const runGame = (function() {
     const newGameButton = document.querySelector('#newGameButton')
     const playerOneScore = document.querySelector('#playerOneScore')
     const playerTwoScore = document.querySelector('#playerTwoScore')
+    const squares = Array.from(gridSquares);
+    const takenSquares = [];
+    squares.forEach(() => takenSquares.push(false))
+    let playerMove = "p1";
+   
+     //Event listener for the resetBoard functions
+     resetButton.addEventListener('click', () => {
+        resetBoard()
+     })
     //object for player one
     const playerOne = {
         name: "",
@@ -31,7 +40,13 @@ const runGame = (function() {
         const playerTwo = document.querySelector('#player2Name');
         assignUser(playerOne.value, playerTwo.value);
         startGameDom(playerOne.value, playerTwo.value);
-        startRounds()
+    })
+    playAgainButton.addEventListener('click', () => {
+        playAgain()
+    })
+    newGameButton.addEventListener('click', () => {
+        resetBoard()
+        winnerModule.style.display = 'none';
     })
     //Function to assign users their name and sign after the start button is clicked
     function assignUser(player1Name, player2Name) {
@@ -48,39 +63,22 @@ const runGame = (function() {
         playerTwoName.innerText = `Player 2: ${playerTwo}`;
     }
 
-//Function for when a winner is found and options are provided
-function winnerFound() {
-    resetButton.style.display = 'none'
-    winnerModule.style.display = 'flex';
-    playAgainButton.addEventListener('click', () => {
-        playAgain()
-    })
-    newGameButton.addEventListener('click', () => {
-        resetBoard()
-    })
-
-
-}
 //Function for the reset button which will reset the board its values and return the OG DOM
     function resetBoard() {
         startedGameBox.style.display = 'none';
         gameNameBox.style.display = 'none';
         htmlGrid.style.display = "none";
         buttonBox.style.display = 'flex';
-        gridArray.fill(0)
-        const squares = Array.from(gridSquares);
-        squares.forEach((square) => {
+        squares.forEach((square, index) => {
             square.innerText = ""
+            gridArray[index] = 0;
         })
         playerOne.score = 0;
         playerTwo.score = 0;
-        winnerModule.style.display = 'none';
-
     }
 //this button is if they want to play again and maintain score
     function playAgain() {
         gridArray.fill(0)
-        const squares = Array.from(gridSquares);
         squares.forEach((square) => {
             square.innerText = ""
         })
@@ -89,23 +87,8 @@ function winnerFound() {
         playerOneScore.innerText = `Score: ${playerOne.score}`
         playerTwoScore.style.display = 'block'
         playerTwoScore.innerText = `Score: ${playerTwo.score}`
-        startRounds()
+        squares.forEach(() => takenSquares.fill(false))
     }
-    //Event listener for the resetBoard functions
-    resetButton.addEventListener('click', resetBoard)
-    //This will be a function to start the rounds 
-    function startRounds() {
-        let roundCount = 1;
-        let playerMove = "p1";
-        //function to increase round count
-        function increaseRound() {
-            roundCount += 1;
-        }
-
-        //array to keep track of the taken squares
-        const squares = Array.from(gridSquares);
-        const takenSquares = [];
-        squares.forEach(() => takenSquares.push(false))
         squares.forEach((square, index) => {
         
         square.addEventListener('click', (e) => {
@@ -114,16 +97,17 @@ function winnerFound() {
             if (playerMove === "p1") {
                 e.target.innerText = "X"
                 playerMove = "p2"
-                increaseRound()
                 takenSquares[index] = true;
                 gridArray[index] = 1
             }
             else if (playerMove === "p2") {
                 e.target.innerText = "O"
                 playerMove = "p1"
-                increaseRound()
                 takenSquares[index] = true;
                 gridArray[index] = 2
+            }
+            else {
+                console.log('nothing')
             }
 
         }
@@ -143,9 +127,10 @@ function winnerFound() {
             })
 
     })
+    //This will be a function to start the rounds 
+
+        //array to keep track of the taken squares
     //event listener for the reset board button
-    return {takenSquares}
-};
 
     //this is the board array that holds 3 rows
     const gridArray = [0,0,0,
@@ -174,21 +159,25 @@ function winnerFound() {
     
 
     function checkWin() {
-
+        printGrid()
         if (winningCombos().some(line => line.every(char => char === 1))) {
             alert(`${playerOne.name} has won the game!`)
-            playerOne.score++
-            winnerFound()
+            playerOne.score += 1;
+            playAgain();
         }
         else if (winningCombos().some(line => line.every(char => char === 2))) {
-            alert(`${playerTwo.name} has won the game!`)
-            playerTwo.score++
-            winnerFound()
+            alert(`${playerTwo.name} has won the game!`);
+            playerTwo.score+= 1
+            playAgain();
+        }
+        else if (gridArray.every(char => char != 0)) {
+            alert("It is a tie!");
+            playAgain();
         }
         else {
-            console.log('No winner yet!')
+            console.log('No winner yet!');
         }
     }
-    return { gridArray, printGrid, checkWin, startRounds, winningCombos};
+    return { gridArray, printGrid, checkWin, winningCombos};
 })
 ();

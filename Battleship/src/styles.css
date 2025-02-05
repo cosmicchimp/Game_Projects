@@ -1,38 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Jolly+Lodger&display=swap");
+@keyframes titleHover {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
 * {
   margin: 0;
   padding: 0;
   gap: 0;
   border: none;
+  box-sizing: border-box;
+}
+.wrapper {
+  max-inline-size: 1000px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
 }
 .header {
   display: flex;
-  align-content: center;
+  align-items: center; /* Ensure vertical centering */
   justify-content: center;
   padding: 3vh;
-  background-color: #233bb0;
-  width: 100vw;
+  background-color: none;
+  width: 100%; /* Use 100% instead of 100vw */
   font-weight: 800;
 }
 .header > h1 {
-  margin-right: 2vw;
+  align-self: center;
+  color: #ffd700;
+  font-weight: 900;
+  font-family: "Jolly Lodger", cursive;
+  font-size: 4em;
+  letter-spacing: 0.1em;
+  animation: titleHover 5s infinite ease-in-out;
 }
-.gameContainer {
-  width: 100vw;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 5vw;
-  justify-content: center;
-}
+
 .gameInputs {
   width: 66vw;
+  height: 60vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background-color: #527dff;
-  margin-top: 1vh;
-  border-radius: 5px;
+  background-color: none;
   padding: 2vh;
 }
 .userInput {
@@ -41,38 +58,13 @@
   margin-top: 2vh;
 }
 body {
-  width: 100vw;
-  height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-content: center;
-  background-color: #dcedff;
-  overflow-x: hidden;
-  margin: 0;
-  gap: 0;
-  padding: 0;
-}
-.board {
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(10, 1fr);
-  width: 33vw;
-  height: 33vh;
-  margin-top: 5vh;
-  display: none;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(to bottom, #4dd0e1, #29b6f6, #0288d1);
 }
 
-.boardSqs {
-  background-color: #23bbe1;
-  border: black 1px solid;
-  border-bottom: none;
-  width: 3vw;
-  height: 3vw;
-  box-sizing: border-box;
-}
-.boardSqs:hover {
-  background-color: #1a475f;
-}
 .startButton {
   display: block;
   padding-left: 20px;
@@ -86,6 +78,79 @@ body {
 .startButton:hover {
   background-color: grey;
 }
+
 .startButton:active {
   transform: scale(90%);
+}
+
+.startButton {
+  position: relative;
+  padding: 15px 30px;
+  font-size: 20px;
+  color: white;
+  background: linear-gradient(45deg, #0288d1, #03a9f4);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.startButton::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.3) 10%,
+    transparent 50%
+  );
+  animation: waveAnimation 10s infinite linear;
+}
+
+@keyframes waveAnimation {
+  0% {
+    transform: translateX(-100px) translateY(0);
+  }
+  50% {
+    transform: translateX(50px) translateY(20px);
+  }
+  100% {
+    transform: translateX(150px) translateY(40px);
+  }
+}
+
+.placementGrid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  height: 25vw;
+  width: 25vw;
+}
+.square {
+  width: 100%;
+  height: 100%;
+  background-color: none;
+  outline: 2px solid black;
+  border-collapse: collapse;
+}
+.ship {
+  display: flex;
+  flex-direction: column;
+}
+.ship:hover {
+  transform: scale(110%);
+}
+.ship > div {
+  width: 2vw;
+  height: 2vw;
+  background-color: grey;
+}
+.shipBay {
+  display: flex;
+  gap: 10px;
+  padding: 1vw;
 }

@@ -1,4 +1,7 @@
+import { chooseShipsDom } from "./chooseShipsDom.js";
 export function startGame() {
-  const board = document.querySelector("#board1");
-  board.style.display = "grid";
+  const startButton = document.querySelector(".startButton");
+  startButton.addEventListener("click", () => {
+    chooseShipsDom();
+  });
 }

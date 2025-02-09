@@ -1,3 +1,4 @@
+import { shipResize } from "./shipResize.js";
 export function rotate() {
   document.addEventListener("keydown", (e) => {
     const shipBay = document.querySelector(".shipBay");
@@ -16,6 +17,7 @@ export function rotate() {
         children.forEach((ship) => {
           ship.style.transform = "rotate(90deg)";
           shipBay.style.padding = "3vw";
+          shipResize(true);
         });
       }
     }

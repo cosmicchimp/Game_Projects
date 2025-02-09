@@ -3,12 +3,9 @@ import { divGenerator } from "./divGenerator.js";
 import { rotate } from "./rotate.js";
 import { drag } from "./drag.js";
 import { clearFirstPage } from "./clearFirstPage.js";
-
+import { shipResize } from "./shipResize.js";
 export function chooseShipsDom() {
-
   const wrapper = document.querySelector(".gameContainer");
-  let squareHeight = 0;
-  let squareWidth = 0;
 
   //clearing the first page away
   clearFirstPage();
@@ -19,16 +16,15 @@ export function chooseShipsDom() {
 
   //Creation of ship div's and assigning them data lengths
   const carrier = document.createElement("div");
-  carrier.addAttribute("data-length", 5)
+  carrier.setAttribute("data-length", 5);
   const battleship = document.createElement("div");
-  battleship.addAttribute("data-length", 4)
+  battleship.setAttribute("data-length", 4);
   const cruiser = document.createElement("div");
-  cruiser.addAttribute("data-length", 3)
+  cruiser.setAttribute("data-length", 3);
   const submarine = document.createElement("div");
-  submarine.addAttribute("data-length", 3)
+  submarine.setAttribute("data-length", 3);
   const destroyer = document.createElement("div");
-  destroyer.addAttribute("data-length", 2)
-
+  destroyer.setAttribute("data-length", 2);
 
   let ships = [carrier, battleship, cruiser, submarine, destroyer];
 
@@ -67,7 +63,6 @@ export function chooseShipsDom() {
     placementGridDisplay.append(square);
   });
 
-
   wrapper.append(placementGridDisplay);
 
   drag(ships);
@@ -77,19 +72,8 @@ export function chooseShipsDom() {
   rotate();
 
   //This will be grabbing the width and height of the square of the grid depending on the users computer and calculate the proper ship length
-  const squareGrab = document.querySelector(".square");
-  if (squareGrab) {
-    const squareDimensions = squareGrab.getBoundingClientRect();
-    console.log(squareDimensions.height, squareDimensions.width);
-    squareHeight = squareDimensions.height;
-    squareWidth = squareDimensions.width;
-    console.log(squareHeight, squareWidth);
-    
-    for let (ship of ships) {
-
-    }
-    
-  } else {
-    console.log("Element not found");
-  }
+  shipResize();
+  window.addEventListener("resize", () => {
+    shipResize(false);
+  });
 }

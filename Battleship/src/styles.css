@@ -17,23 +17,24 @@
   border: none;
   box-sizing: border-box;
 }
+
 .wrapper {
-  max-inline-size: 1000px;
+  max-inline-size: 800px;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 100vh;
   align-items: center;
 }
 .header {
   display: flex;
   align-items: center; /* Ensure vertical centering */
   justify-content: center;
-  padding: 3vh;
+  padding: 2vh;
   background-color: none;
   width: 100%; /* Use 100% instead of 100vw */
   font-weight: 800;
 }
-.header > h1 {
+.title {
   align-self: center;
   color: #ffd700;
   font-weight: 900;
@@ -61,7 +62,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  flex-direction: column;
+  height: 100%;
   background: linear-gradient(to bottom, #4dd0e1, #29b6f6, #0288d1);
 }
 
@@ -129,28 +131,121 @@ body {
   grid-template-rows: repeat(10, 1fr);
   height: 25vw;
   width: 25vw;
+  background-color: #035988;
+  border: black 2px solid;
+  position: relative;
 }
 .square {
   width: 100%;
   height: 100%;
   background-color: none;
-  outline: 2px solid black;
   border-collapse: collapse;
+  border: black 1px dashed;
 }
+
 .ship {
   display: flex;
   flex-direction: column;
+  flex-shrink: 1;
+  box-sizing: border-box;
+  cursor: move;
+  background-color: #2c3e50; /* Dark navy blue hull */
+  width: 120px; /* Adjusted for more battleship-like proportions */
+  height: 40px;
+  border-radius: 40px 40px 5px 5px; /* Slightly sharper curves for a more robust hull */
+  position: relative;
+  border: 3px solid #34495e; /* Slightly lighter navy border */
+  box-shadow: inset 0 -8px 15px rgba(0, 0, 0, 0.5); /* Darker shadow for a more heavy appearance */
+  overflow: hidden;
+  transform: rotate(0deg); /* Adjust to give a horizontal appearance */
+  z-index: 1;
+}
+
+/* Add a more prominent bridge section */
+.ship::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 40%;
+  width: 20%;
+  height: 18px;
+  background-color: #34495e; /* Lighter navy bridge */
+  border-radius: 10px 10px 0 0;
+  border: 2px solid #2c3e50;
+}
+
+/* Add more defined portholes with metallic shine */
+.ship::after {
+  content: "";
+  position: absolute;
+  bottom: 8px;
+  left: 10%;
+  width: 80%;
+  height: 10px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.8) 25%,
+    transparent 25%
+  );
+  background-size: 18px 18px;
+  background-position: center;
+}
+
+/* Optional: Add a top metal trim to enhance the battleship look */
+.ship::after {
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+.carrier {
+  width: 2.5vw;
+  height: 22vh;
+  grid-row: span 5;
+}
+.battleship {
+  display: flex;
+  flex-direction: column;
+  width: 2.5vw;
+  height: 17.5vh;
+  grid-row: span 4;
+}
+
+.cruiser {
+  display: flex;
+  flex-direction: column;
+  width: 2.5vw;
+  height: 13.5vh;
+  grid-row: span 3;
+}
+.submarine {
+  display: flex;
+  flex-direction: column;
+  width: 2.5vw;
+  height: 13.5vh;
+  grid-row: span 3;
+}
+.destroyer {
+  display: flex;
+  flex-direction: column;
+  width: 2.5vw;
+  height: 8.5vh;
+  grid-row: span 2;
 }
 .ship:hover {
-  transform: scale(110%);
-}
-.ship > div {
-  width: 2vw;
-  height: 2vw;
-  background-color: grey;
+  background-color: yellow;
 }
 .shipBay {
   display: flex;
+  flex-direction: row;
   gap: 10px;
+  height: 25vw;
   padding: 1vw;
+  grid-column: 1/2;
+  background-color: grey;
+  background-color: rgba(0, 0, 0, 0.5); /* 50% opacity background */
+}
+.gameContainer {
+  height: 100vh;
+  max-width: 60vw;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
 }

@@ -1,0 +1,156 @@
+@import url("https://fonts.googleapis.com/css2?family=Jolly+Lodger&display=swap");
+@keyframes titleHover {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+* {
+  margin: 0;
+  padding: 0;
+  gap: 0;
+  border: none;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  max-inline-size: 800px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  align-items: center;
+}
+.header {
+  display: flex;
+  align-items: center; /* Ensure vertical centering */
+  justify-content: center;
+  padding: 2vh;
+  background-color: none;
+  width: 100%; /* Use 100% instead of 100vw */
+  font-weight: 800;
+}
+.title {
+  align-self: center;
+  color: #ffd700;
+  font-weight: 900;
+  font-family: "Jolly Lodger", cursive;
+  font-size: 4em;
+  letter-spacing: 0.1em;
+  animation: titleHover 5s infinite ease-in-out;
+}
+
+.gameInputs {
+  width: 66vw;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: none;
+  padding: 2vh;
+}
+.userInput {
+  padding: 2vh;
+  border-radius: 10px;
+  margin-top: 2vh;
+}
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  background: linear-gradient(to bottom, #4dd0e1, #29b6f6, #0288d1);
+}
+
+.startButton {
+  display: block;
+  padding-left: 20px;
+  background-color: white;
+  border-radius: 10px;
+  margin-top: 3vh;
+  font-weight: 600;
+  margin-bottom: 3vh;
+}
+
+.startButton:hover {
+  background-color: grey;
+}
+
+.startButton:active {
+  transform: scale(90%);
+}
+
+.startButton {
+  position: relative;
+  padding: 15px 30px;
+  font-size: 20px;
+  color: white;
+  background: linear-gradient(45deg, #0288d1, #03a9f4);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.startButton::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.3) 10%,
+    transparent 50%
+  );
+  animation: waveAnimation 10s infinite linear;
+}
+
+@keyframes waveAnimation {
+  0% {
+    transform: translateX(-100px) translateY(0);
+  }
+  50% {
+    transform: translateX(50px) translateY(20px);
+  }
+  100% {
+    transform: translateX(150px) translateY(40px);
+  }
+}
+
+input[type="radio"] {
+  width: 1.5vw; /* Adjust width */
+  height: 1.5vw; /* Adjust height */
+}
+label {
+  font-size: 1.2em;
+}
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2vh;
+}
+.square {
+  background-color: #03a9f4;
+  width: 100%;
+  height: 100%;
+  border: solid 1px black;
+  display: flex;
+}
+
+.gameContainer {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  width: 30vw;
+  height: 30vw;
+}

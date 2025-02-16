@@ -13,6 +13,8 @@ export function startGame(twoPlayer) {
     const p2 = player(document.getElementById("player2").value);
     gameInputs.remove();
     p1.board.domPrint(gameContainer);
+    const popup = popups();
+    popup.p1ShipPlace();
     console.log(p1, p2);
   }
   function cpuGame() {

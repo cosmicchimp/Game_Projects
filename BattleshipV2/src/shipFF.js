@@ -28,4 +28,5 @@ export function shipGenerate() {
       },
     };
   }
+  return { shipNames };
 }

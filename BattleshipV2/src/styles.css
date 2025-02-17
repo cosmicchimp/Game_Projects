@@ -154,3 +154,19 @@ label {
   width: 30vw;
   height: 30vw;
 }
+
+.popupModule {
+  background-color: #ffd700;
+  width: 20vw;
+  height: 10vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  top: 18vh;
+}
+.closeButton {
+  width: 8vw;
+  height: 3vw;
+}

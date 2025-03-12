@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Card Game</title>
+</head>
+<body>    
+    <div id="headerBox">
+        <strong><h1>Memory Mix-Up</h1></strong>
+        <h2>Can you remember all the cards?</h2>
+    </div>
+    <div id="timerBox">
+        <h2 id="timeCountdown"></h2>
+        <h2 id="matchesMade"></h2>
+    </div>
+    <div id="gameBox">
+        <div id="card">
+        <div id="innerCard">
+            <button id="startGameButton">PLAY</button>
+        </div>
+        </div>
+        <div id="actualGameBox">
+            <div id="cardRow1" class="cardRow">
+                <div class="gamecard" id="card1">
+                    <div class="innerCards">
+                        <button class="cardButton" id="cardButton1">1</button>
+                    </div>
+                </div>
+                <div class="gamecard" id="card2">
+                    <div class="innerCards">
+                        <button class="cardButton" id="cardButton2">2</button>
+                    </div>
+                </div>
+                <div class="gamecard" id="card3">
+                    <div class="innerCards">
+                        <button class="cardButton" id="cardButton3">3</button>
+                    </div>
+                </div>
+                <div class="gamecard" id="card4">
+                    <div class="innerCards">
+                        <button class="cardButton" id="cardButton4">4</button>
+                    </div>
+                </div>
+                <div class="gamecard" id="card5">
+                    <div class="innerCards">
+                        <button class="cardButton" id="cardButton5">5</button>
+                    </div>
+                </div>
+                <div class="gamecard" id="card6">
+                    <div class="innerCards">
+                        <button class="cardButton" id="cardButton6">6</button>
+                    </div>
+                </div>
+            </div>
+            <div id="cardRow2" class="cardRow">
+                <div class="gamecard" id="card7">
+                    <div class="innerCards">
+                        <button class="cardButton" id="cardButton7">7</button>
+                    </div>
+                </div>
+                <div class="gamecard" id="card8">
+                    <div class="innerCards">
+                        <button class="cardButton" id="cardButton8">8</button>
+                    </div>
+                </div>
+                <div class="gamecard" id="card9">
+                    <div class="innerCards">
+                        <button class="cardButton" id="cardButton9">9</button>
+                    </div>
+                </div>
+                <div class="gamecard" id="card10">
+                    <div class="innerCards">
+                        <button class="cardButton" id="cardButton10">10</button>
+                    </div>
+                </div>
+                <div class="gamecard" id="card11">
+                    <div class="innerCards">
+                        <button class="cardButton" id="cardButton11">11</button>
+                    </div>
+                </div>
+                <div class="gamecard" id="card12">
+                    <div class="innerCards">
+                        <button class="cardButton" id="cardButton12">12</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<style>
+* {
+        margin:0;
+        padding:0;
+        gap:0;
+    }
+
+body {
+    display:flex;
+    flex-direction:column;
+    overflow-y: hidden;
+}
+#headerBox {
+    background: black;
+    color:rgb(255, 255, 255);
+    text-align: center;
+    padding:15px;
+    line-height:40px;
+    box-sizing:border-box;
+    max-height:130px;
+    width:100%;
+}
+@keyframes timerColorWave {
+    0% {background-color: darkgreen;}
+    25% {background-color: purple;}
+    50% {background-color: darkmagenta;}
+    75% {background-color: darkorange;}
+    100% {background-color: darkgreen;}
+
+}
+#timerBox {
+    display:flex;
+    width:100%;
+    height:75px;
+    background-color:darkgreen;
+    border:2px solid rgb(89, 0, 255);
+    animation: timerColorWave 10s linear infinite;
+    display:none;
+    align-content: center;
+    text-align:center;
+    font-size:22px;
+    font-weight:700px;
+    color:aqua;
+    
+}
+#gameBox {
+    display:flex;
+    justify-content: center;
+    width:100%;
+    height:1000px;
+}
+#actualGameBox {
+    display:flex;
+    flex-direction:column;
+}
+#cardRow1, #cardRow2 {
+    display:flex;
+    gap:80px;
+}
+#cardRow1 {
+    margin-bottom:10px;
+    margin-top:10px;
+}
+#cardRow2 {
+    margin-top:10px;
+}
+.gamecard {
+    display:flex;
+    width:200px;
+    height:300px;
+    background-color: black;
+    border:1px solid black;
+    border-radius:15px;
+    justify-content: center;
+    align-items: center;
+    display:none;
+}
+.innerCards {
+    display:flex;
+    width:175px;
+    height:275px;
+    background-color: darkgreen;
+    border:1px solid black;
+    border-radius:15px;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardText {
+    text-align: center;
+    text-justify: center;
+
+}
+#card {
+    height:250px;
+    width:175px;
+    background-color:rgb(0, 0, 0);
+    margin-top:100px;
+    border:1px black solid;
+    border-radius:15px;
+}
+#innerCard {
+    display:flex;
+    height:225px;
+    width:150px;
+    background-color:darkgreen;
+    margin-top:100px;
+    border:1px black solid;
+    border-radius:15px;
+    margin-top:11px;
+    margin-left:11px;
+    justify-content: center;
+    align-items: center; 
+}
+#innerCard > h1 {
+    color:white;
+}
+#startGameButton {
+    display:flex;
+    max-height:40px;
+    background-color: black;
+    color:white;
+    text-align: center;
+    border:2px solid rgb(2, 131, 2);
+    border-radius:15px;
+    justify-content: center;
+    align-items: center;
+    padding:20px;
+    }
+    #startGameButton:hover {
+        cursor:pointer;
+    }
+    #startGameButton:active {
+        transform:scale(.9);
+    }
+</style>
+<script>
+    //Random Math Function
+    function randomMath() {
+        let randomInt = Math.floor((Math.random() * 6))
+        return randomInt;
+    }
+    //I'm gonna add in an ARRAY that will hold the different card markings:
+    function assignCardValues() {
+    // Arrays holding the card values
+    let cardRow1Choices = [1, 2, 3, 4, 5, 6];
+    let cardRow2Choices = [2, 4, 6, 8, 10, 12];
+
+    // Shuffle the arrays
+    cardRow1Choices = shuffleArray(cardRow1Choices);
+    cardRow2Choices = shuffleArray(cardRow2Choices);
+
+    // Get cards for each row
+    const row1Cards = document.querySelectorAll('#cardRow1 .gamecard');
+    const row2Cards = document.querySelectorAll('#cardRow2 .gamecard');
+
+}
+
+
+// Helper function to shuffle arrays
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+    }
+    return array;
+}
+
+
+    const startGameButton = document.getElementById('startGameButton')
+    startGameButton.addEventListener('click', startGameFunction)
+    const card = document.getElementById('card')
+    const gameBox = document.getElementById('gameBox')
+    const timerBox = document.getElementById('timerBox')
+    const timeCountdown = document.getElementById('timeCountdown')
+    const gamecards = document.querySelectorAll('.gamecard')
+    function startGameFunction () {
+        gamecards.forEach(gamecard => {
+    gamecard.style.display = 'flex';
+    });
+        card.style.display = 'none';
+        gameBox.style.backgroundColor = 'darkblue';
+        timerBox.style.display = 'block';
+        timeCountdown.innerHTML = "Time Remaining: "
+        let timeLeft = 180
+        function countdownFunction() {
+            if (timeLeft >= 0) {
+                let minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+                timeCountdown.innerHTML = `Time Remaining: ${minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
+                timeLeft--;
+            }
+            else {
+                timeCountdown.innerHTML = "Time's up!";
+            }
+        }
+        const countdownInterval = setInterval(countdownFunction, 1000);
+        countdownFunction()
+        
+    }
+
+</script>
+</html>

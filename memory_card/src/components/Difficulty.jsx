@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-export function Difficulty({ updateGameStart }) {
+export function Difficulty({ updateGameStart, updateDiffLevel }) {
   const [activeOption, updateActiveOption] = useState(0);
   const levels = ["Easy", "Medium", "Hard"];
   function githubLink() {
@@ -14,7 +14,8 @@ export function Difficulty({ updateGameStart }) {
           prev === 0 ? levels.length - 1 : prev - 1
         ); // Move up
       } else if (event.key === "Enter") {
-        updateGameStart(true); // Pass selected difficulty
+        updateGameStart(true);
+        updateDiffLevel(levels[activeOption]); // Pass selected difficulty
       }
     };
 

@@ -7,6 +7,7 @@ import { Difficulty } from "./components/Difficulty";
 function App() {
   const [gamePage, updateDisplayScreen] = useState(false); // To control the transition to Difficulty
   const [startGame, updateStartGame] = useState(false); // To control when the game starts
+  const [diffLevel, updateDiffLevel] = useState(""); // To control when the game starts
 
   // LandingScreen should appear if neither gamePage nor startGame is true
   if (!gamePage && !startGame) {
@@ -20,12 +21,17 @@ function App() {
         const pressHandler = (e) => {};
       });
     }
-    return <Difficulty updateGameStart={updateStartGame} />;
+    return (
+      <Difficulty
+        updateGameStart={updateStartGame}
+        updateDiffLevel={updateDiffLevel}
+      />
+    );
   }
 
   // Once startGame is true, the GamePage should appear
   else {
-    return <GamePage />;
+    return <GamePage diffLevel={diffLevel} />;
   }
 }
 

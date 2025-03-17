@@ -1,4 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+@media (max-width: 1400px) {
+  .modalWrapper {
+    max-width: 30vw !important;
+    margin-bottom: 4vw !important;
+  }
+}
 :root {
   background-image: url("./assets/landingBackground.png"); /* Replace with your image */
   background-size: cover; /* Covers the entire screen without stretching */
@@ -6,6 +12,7 @@
   background-repeat: no-repeat; /* Prevents tiling */
   background-attachment: fixed;
 }
+
 body {
   font-family: "Press Start 2P", cursive;
   height: 100vh;
@@ -13,8 +20,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  cursor: url(./assets/download.png) 14 0, pointer;
+  cursor: url(./assets/download.png) 14 0, pointer !important;
   user-select: none;
+  overflow-x: hidden;
 }
 * {
   margin: 0;
@@ -43,6 +51,7 @@ body {
   cursor: url(./assets/download.png) 14 0, pointer;
   padding: 2vw;
 }
+
 .diffModal {
   display: flex;
   flex-direction: column;
@@ -79,7 +88,7 @@ button {
   font-size: clamp(0rem, 1rem, 1.5rem);
   font-weight: 600;
   font-family: "Press Start 2P", cursive;
-  cursor: url(./assets/clicker.png) 14 0, pointer;
+  cursor: url(./assets/clicker.png) 14 0, pointer !important;
 }
 body {
   background-image: url("your-image.jpg"); /* Replace with your image */

@@ -70,10 +70,9 @@ export function chooseShipsDom() {
   console.log(ships);
 
   rotate();
-
   //This will be grabbing the width and height of the square of the grid depending on the users computer and calculate the proper ship length
   shipResize();
   window.addEventListener("resize", () => {
-    shipResize(false);
+    shipResize();
   });
 }

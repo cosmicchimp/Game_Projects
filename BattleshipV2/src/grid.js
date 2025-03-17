@@ -1,8 +1,8 @@
-export function createGrid() {
+export function createGrid(user) {
   const grid = [];
   for (let i = 1; i < 101; i++) {
     let square = document.createElement("div");
-    square.id = `square${i}`;
+    square.id = `${user}square${i}`;
     square.classList = "square";
     grid.push(square);
   }

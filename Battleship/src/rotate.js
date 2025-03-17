@@ -7,17 +7,29 @@ export function rotate() {
     if (e.key == "r") {
       if (currentDirection === "column") {
         shipBay.style.flexDirection = "row";
+        shipBay.style.alignItems = "flex-start";
+        shipBay.style.justifyContent = "center";
+        shipBay.style.height = "25vw";
         const children = Array.from(shipBay.children);
         children.forEach((ship) => {
-          ship.style.transform = "rotate(0deg)";
+          if (!ship.classList.contains("dropped")) {
+            ship.style.flexDirection = "row";
+            ship.style.transform = "rotate(0deg)";
+          }
         });
       } else {
         shipBay.style.flexDirection = "column";
+        shipBay.style.alignItems = "center";
+        shipBay.style.justifyContent = "flex-start";
+        shipBay.style.height = "90vh";
         const children = Array.from(shipBay.children);
         children.forEach((ship) => {
-          ship.style.transform = "rotate(90deg)";
-          shipBay.style.padding = "3vw";
-          shipResize(true);
+          if (!ship.classList.contains("dropped")) {
+            ship.style.transform = "rotate(90deg)";
+            ship.style.flexShrink = "0";
+            ship.style.flexGrow = "0";
+            ship.style.display = "flex";
+          }
         });
       }
     }

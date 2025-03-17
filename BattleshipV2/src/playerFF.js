@@ -4,6 +4,6 @@ export function player(name) {
   return {
     name,
     ships: shipGenerate([]),
-    board: createGrid(),
+    board: createGrid(name),
   };
 }

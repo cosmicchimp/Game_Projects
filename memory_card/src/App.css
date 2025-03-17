@@ -1,0 +1,130 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+:root {
+  background-image: url("./assets/landingBackground.png"); /* Replace with your image */
+  background-size: cover; /* Covers the entire screen without stretching */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents tiling */
+  background-attachment: fixed;
+}
+body {
+  font-family: "Press Start 2P", cursive;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: url(./assets/download.png) 14 0, pointer;
+  user-select: none;
+}
+* {
+  margin: 0;
+  padding: 0;
+  gap: 0;
+}
+.modalWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8%;
+  padding: 2vw;
+  border-radius: 10px;
+  cursor: url(./assets/download.png) 14 0, pointer;
+  background: url(./assets/modalBackground.png);
+  background-size: contain;
+}
+
+.diffWrapper {
+  background-color: white;
+  border: solid 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  cursor: url(./assets/download.png) 14 0, pointer;
+  padding: 2vw;
+}
+.diffModal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3rem;
+  margin-left: 2vw;
+  padding: 1vw;
+}
+.startGameModal {
+  color: white;
+  font-size: 1.5rem;
+  text-align: center;
+  text-overflow: wrap;
+  background-color: rgb(250, 247, 247);
+  max-width: 40vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2vw;
+  gap: 2vw;
+  color: black;
+  margin: 1vw 1vw 1vw 1vw;
+  border-radius: 5px;
+  line-height: 2em;
+  outline: black solid 2px;
+}
+.startGameModal > div > h1 {
+  font-size: 2rem;
+}
+button {
+  padding: 1vw;
+  width: 7rem;
+  text-align: center;
+  font-size: clamp(0rem, 1rem, 1.5rem);
+  font-weight: 600;
+  font-family: "Press Start 2P", cursive;
+  cursor: url(./assets/clicker.png) 14 0, pointer;
+}
+body {
+  background-image: url("your-image.jpg"); /* Replace with your image */
+  background-size: cover; /* Covers the entire screen without stretching */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents tiling */
+  background-attachment: fixed;
+}
+.diffOption {
+  position: relative;
+  cursor: url(./assets/clicker.png) 14 0, pointer;
+}
+.activeOption::before {
+  content: "►"; /* Unicode for a right-facing arrow */
+  position: absolute;
+  left: -3rem; /* Position it to the left */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  color: black;
+  animation: flashArrow 1s infinite;
+  animation-timing-function: steps(1, start);
+}
+.githubRepo {
+  display: flex;
+  gap: 0.5vw;
+  align-items: center;
+  text-align: center;
+  margin-left: 0.5vw;
+  gap: 1vw;
+  cursor: url(./assets/clicker.png) 14 0, pointer;
+}
+.githubTitle {
+  display: flex;
+  align-items: center;
+}
+.svgIcon {
+  height: clamp(2vw, 2.5vw, 5vw);
+  width: clamp(1vw, 2vw, 6vw);
+}
+@keyframes flashArrow {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}

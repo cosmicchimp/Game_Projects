@@ -3,7 +3,10 @@ export function Difficulty({ updateGameStart, updateDiffLevel }) {
   const [activeOption, updateActiveOption] = useState(0);
   const levels = ["Easy", "Medium", "Hard"];
   function githubLink() {
-    window.open("https://github.com/cosmicchimp/Game_Projects", "_blank");
+    window.open(
+      "https://github.com/cosmicchimp/Game_Projects/tree/main/memory_card",
+      "_blank"
+    );
   }
   useEffect(() => {
     const handleKeyDown = (event) => {

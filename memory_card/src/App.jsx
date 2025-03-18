@@ -8,6 +8,16 @@ function App() {
   const [gamePage, updateDisplayScreen] = useState(false); // To control the transition to Difficulty
   const [startGame, updateStartGame] = useState(false); // To control when the game starts
   const [diffLevel, updateDiffLevel] = useState(""); // To control when the game starts
+  const [winStatus, updateWinStatus] = useState(false);
+  const [loseStatus, updateLoseStatus] = useState(false);
+  const [highscore, updateHighscore] = useState(
+    localStorage.getItem("highscore") ? localStorage.getItem("highscore") : 0
+  );
+  useEffect(() => {
+    updateStartGame(false);
+    updateDiffLevel("");
+    updateLoseStatus(false);
+  }, [loseStatus]);
 
   // LandingScreen should appear if neither gamePage nor startGame is true
   if (!gamePage && !startGame) {
@@ -16,11 +26,6 @@ function App() {
 
   // Difficulty screen should appear if gamePage is true but startGame is false
   else if (gamePage && !startGame) {
-    function keyListener() {
-      useState(() => {
-        const pressHandler = (e) => {};
-      });
-    }
     return (
       <Difficulty
         updateGameStart={updateStartGame}
@@ -31,7 +36,15 @@ function App() {
 
   // Once startGame is true, the GamePage should appear
   else {
-    return <GamePage diffLevel={diffLevel} />;
+    return (
+      <GamePage
+        diffLevel={diffLevel}
+        updateLoseStatus={updateLoseStatus}
+        updateWinStatus={updateWinStatus}
+        highscore={highscore}
+        updateHighscore={updateHighscore}
+      />
+    );
   }
 }
 

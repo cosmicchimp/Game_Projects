@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import pokeball from "../assets/pokeball.png";
+import pokeball from "../../public/assets/pokeball.png";
 
 export function GamePage({
   diffLevel,
